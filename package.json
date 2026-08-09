@@ -14,6 +14,10 @@
     "routing": "tsx src/7-dynamic-routing.ts",
     "refine": "tsx src/8-refinement-loop.ts",
     "fork": "tsx src/9-fork-session.ts",
+    "gate": "tsx src/10-prerequisite-gate.ts",
+    "decompose": "tsx src/11-parallel-investigation.ts",
+    "handoff": "tsx src/12-escalation-handoff.ts",
+    "normalize": "tsx src/13-normalize-posttooluse.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
