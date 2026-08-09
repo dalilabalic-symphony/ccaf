@@ -1,0 +1,30 @@
+{
+  "name": "claude-agent-loop-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "TypeScript examples of the Claude agent loop (Messages API, manual tool-use loop, Tool Runner, Agent SDK) and of coordinator/subagent orchestration with the Agent SDK",
+  "scripts": {
+    "basic": "tsx src/1-basic-message.ts",
+    "manual": "tsx src/2-manual-loop.ts",
+    "runner": "tsx src/3-tool-runner.ts",
+    "agent-sdk": "tsx src/4-agent-sdk.ts",
+    "context": "tsx src/5-subagent-context.ts",
+    "fanout": "tsx src/6-coordinator-fanout.ts",
+    "routing": "tsx src/7-dynamic-routing.ts",
+    "refine": "tsx src/8-refinement-loop.ts",
+    "fork": "tsx src/9-fork-session.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.3.226",
+    "@anthropic-ai/sdk": "^0.115.0",
+    "dotenv": "^17.4.2",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "tsx": "^4.23.10",
+    "typescript": "^7.0.2"
+  }
+}

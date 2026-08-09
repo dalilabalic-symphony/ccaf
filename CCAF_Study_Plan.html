@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCAF Study Plan — Aug 8–28, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F6F3;
+    --paper-raised:#FFFFFF;
+    --ink:#1C1E20;
+    --ink-soft:#565A5E;
+    --hairline:#DEDBD3;
+
+    --d1:#3B4C7A; /* Domain 1 - Agentic Architecture & Orchestration */
+    --d1-bg:#EDF0F8;
+    --d2:#2E7D6B; /* Domain 2 - Tool Design & MCP Integration */
+    --d2-bg:#E9F3EF;
+    --d3:#A9782F; /* Domain 3 - Claude Code Configuration & Workflows */
+    --d3-bg:#F7EEDC;
+    --d4:#B4552F; /* Domain 4 - Prompt Engineering & Structured Output */
+    --d4-bg:#F8E9E1;
+    --d5:#7A4B6B; /* Domain 5 - Context Management & Reliability */
+    --d5-bg:#F2E8EF;
+    --neutral:#5A6472; /* Mocks / Review */
+    --neutral-bg:#EAEBEE;
+
+    --radius:10px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', -apple-system, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{ max-width:900px; margin:0 auto; padding:0 24px 120px; }
+
+  code, .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  /* ---------- Header ---------- */
+  header.hero{
+    padding:56px 24px 40px;
+    border-bottom:1px solid var(--hairline);
+    background:
+      radial-gradient(1200px 300px at 15% -10%, rgba(59,76,122,0.06), transparent 60%),
+      radial-gradient(1000px 260px at 85% -20%, rgba(180,85,47,0.06), transparent 60%);
+  }
+  header.hero .inner{ max-width:900px; margin:0 auto; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(32px, 5vw, 46px);
+    line-height:1.08;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+  .hero-sub{
+    font-size:16.5px;
+    color:var(--ink-soft);
+    max-width:60ch;
+    margin:0 0 28px;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px 28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--ink);
+    padding-top:18px;
+    border-top:1px solid var(--hairline);
+  }
+  .hero-meta span b{ color:var(--ink-soft); font-weight:500; }
+
+  .callout{
+    margin-top:22px;
+    padding:14px 16px;
+    background:var(--paper-raised);
+    border:1px solid var(--hairline);
+    border-left:3px solid var(--d1);
+    border-radius:6px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .callout b{ color:var(--ink); }
+
+  /* ---------- Timeline strip ---------- */
+  .timeline-section{ padding:36px 24px 8px; }
+  .timeline-title{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--ink-soft); margin-bottom:14px;
+  }
+  .timeline{
+    display:flex; align-items:flex-end; gap:3px;
+    padding-bottom:6px; overflow-x:auto;
+  }
+  .tick{
+    flex:1; min-width:14px;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+  }
+  .tick .bar{
+    width:100%; height:34px; border-radius:4px;
+    display:flex; align-items:flex-end; justify-content:center;
+    font-family:'IBM Plex Mono', monospace; font-size:10px; color:#fff;
+    padding-bottom:3px;
+  }
+  .tick .lbl{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--ink-soft); }
+  .tick.exam .bar{ background:var(--ink); height:44px; font-weight:600; }
+  .tick.exam .lbl{ color:var(--ink); font-weight:600; }
+
+  .legend{ display:flex; flex-wrap:wrap; gap:14px 20px; margin:18px 0 6px; }
+  .legend-item{ display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink-soft); }
+  .legend-dot{ width:10px; height:10px; border-radius:2px; flex:none; }
+
+  /* ---------- Progress ---------- */
+  .progress-wrap{
+    position:sticky; top:0; z-index:10;
+    background:rgba(247,246,243,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hairline);
+    padding:10px 24px;
+  }
+  .progress-inner{ max-width:900px; margin:0 auto; display:flex; align-items:center; gap:14px; }
+  .progress-track{ flex:1; height:6px; background:var(--hairline); border-radius:3px; overflow:hidden; }
+  .progress-fill{ height:100%; width:0%; background:linear-gradient(90deg, var(--d1), var(--d4)); transition:width .3s ease; }
+  .progress-label{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); white-space:nowrap; }
+
+  /* ---------- Nav ---------- */
+  nav.jump{
+    display:flex; flex-wrap:wrap; gap:8px;
+    padding:22px 24px 0;
+    max-width:900px; margin:0 auto;
+  }
+  nav.jump a{
+    font-family:'IBM Plex Mono', monospace; font-size:12px;
+    color:var(--ink); text-decoration:none;
+    padding:6px 12px; border:1px solid var(--hairline); border-radius:20px;
+    background:var(--paper-raised);
+  }
+  nav.jump a:hover{ border-color:var(--ink); }
+
+  /* ---------- Domain section header ---------- */
+  .domain-header{
+    margin:56px 0 22px;
+    padding-top:8px;
+  }
+  .domain-header .eyebrow-row{
+    display:flex; align-items:center; gap:10px; margin-bottom:8px;
+  }
+  .domain-chip{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; font-weight:600;
+    color:#fff; padding:3px 10px; border-radius:20px; letter-spacing:.02em;
+  }
+  .domain-weight{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); }
+  .domain-header h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size:26px; margin:2px 0 6px;
+  }
+  .domain-header p{ color:var(--ink-soft); font-size:14.5px; margin:0; max-width:70ch; }
+
+  /* ---------- Day card ---------- */
+  .day-card{
+    background:var(--paper-raised);
+    border:1px solid var(--hairline);
+    border-left:4px solid var(--card-accent, var(--ink));
+    border-radius:var(--radius);
+    padding:20px 22px 22px;
+    margin-bottom:14px;
+  }
+  .day-card-top{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+    margin-bottom:10px;
+  }
+  .day-id{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+  .day-num{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:600;
+    color:var(--card-accent, var(--ink));
+    background:var(--card-bg, var(--neutral-bg));
+    padding:2px 9px; border-radius:20px;
+  }
+  .day-date{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-soft); }
+  .day-title{ font-family:'Fraunces', serif; font-weight:600; font-size:18.5px; margin:6px 0 0; }
+
+  .check{
+    flex:none; width:22px; height:22px; border-radius:5px;
+    border:1.5px solid var(--hairline); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:14px; user-select:none;
+    background:var(--paper-raised);
+  }
+  .check.done{ background:var(--card-accent, var(--ink)); border-color:var(--card-accent, var(--ink)); }
+  .day-card.done{ opacity:0.6; }
+  .day-card.done .day-title{ text-decoration:line-through; text-decoration-color:var(--ink-soft); }
+
+  .block{ margin-top:12px; font-size:14.5px; }
+  .block .k{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase;
+    letter-spacing:.06em; color:var(--card-accent, var(--ink-soft)); display:block; margin-bottom:3px;
+  }
+  .block p{ margin:0; color:var(--ink); }
+  .block p em, .guide-refs{ color:var(--ink-soft); }
+  .guide-refs b{ color:var(--ink); font-weight:600; }
+
+  /* ---------- Reference tables / footer sections ---------- */
+  .panel{
+    background:var(--paper-raised); border:1px solid var(--hairline); border-radius:var(--radius);
+    padding:22px 24px; margin:18px 0;
+  }
+  .panel h3{
+    font-family:'Fraunces', serif; font-weight:600; font-size:19px; margin:0 0 10px;
+  }
+  table.weights{ width:100%; border-collapse:collapse; font-size:14px; margin-top:8px; }
+  table.weights th, table.weights td{ text-align:left; padding:8px 10px; border-bottom:1px solid var(--hairline); }
+  table.weights th{ font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); }
+  .wdot{ display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:8px; }
+
+  .footer-section{ margin-top:64px; }
+  .footer-section h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size:22px; margin:0 0 6px;
+  }
+  .footer-section > p.lede{ color:var(--ink-soft); font-size:14px; margin:0 0 14px; }
+
+  ul.plain{ margin:0; padding-left:20px; font-size:14.5px; }
+  ul.plain li{ margin-bottom:6px; }
+
+  .final-note{
+    margin-top:60px; padding:22px 24px; border-radius:var(--radius);
+    background:var(--ink); color:var(--paper);
+  }
+  .final-note h3{ font-family:'Fraunces', serif; font-weight:600; margin:0 0 8px; font-size:19px; color:#fff; }
+  .final-note p{ margin:0; font-size:14px; color:#D9DADC; }
+
+  @media print{
+    .progress-wrap, nav.jump, .check{ display:none !important; }
+    .day-card{ break-inside:avoid; }
+    body{ background:#fff; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="inner">
+    <p class="eyebrow">Claude Certified Architect — Foundations · CCAR-F</p>
+    <h1>CCAF Study Plan</h1>
+    <p class="hero-sub">A 20-day, domain-weighted plan built from Anthropic's official Exam Guide and mapped chapter-by-chapter to your uploaded study guide.</p>
+    <div class="hero-meta">
+      <span><b>Start:</b> Sat, Aug 8, 2026</span>
+      <span><b>Exam:</b> Fri, Aug 28, 2026</span>
+      <span><b>Format:</b> 60 items · 120 min · 4 of 6 scenarios</span>
+      <span><b>Pass score:</b> 720 / 1000</span>
+    </div>
+    <div class="callout">
+      <b>Dates double-checked:</b> Aug 8, 2026 is confirmed as a <b>Saturday</b> and Aug 28, 2026 as a <b>Friday</b> — 20 study days (Aug 8–27) plus exam day.
+    </div>
+  </div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="progress-label" id="progress-label">0 / 20 days checked off</span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+</div>
+
+<nav class="jump">
+  <a href="#timeline">Timeline</a>
+  <a href="#domain1">Domain 1</a>
+  <a href="#domain3">Domain 3</a>
+  <a href="#domain4">Domain 4</a>
+  <a href="#domain2">Domain 2</a>
+  <a href="#domain5">Domain 5</a>
+  <a href="#mocks">Mocks &amp; Review</a>
+  <a href="#exam-day">Exam Day</a>
+  <a href="#scope">Out of Scope</a>
+  <a href="#logistics">Logistics</a>
+</nav>
+
+<div class="wrap">
+
+  <div class="timeline-section" id="timeline">
+    <p class="timeline-title">20 days → exam</p>
+    <div class="timeline">
+      <div class="tick"><div class="bar" style="background:var(--d1)">1</div><span class="lbl">8</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d1)">2</div><span class="lbl">9</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d1)">3</div><span class="lbl">10</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d1)">4</div><span class="lbl">11</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d1)">5</div><span class="lbl">12</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d3)">6</div><span class="lbl">13</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d3)">7</div><span class="lbl">14</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d3)">8</div><span class="lbl">15</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d4)">9</div><span class="lbl">16</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d4)">10</div><span class="lbl">17</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d4)">11</div><span class="lbl">18</span></div>
+      <div class="tick"><div class="bar" style="background:var(--neutral)">12</div><span class="lbl">19</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d2)">13</div><span class="lbl">20</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d2)">14</div><span class="lbl">21</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d2)">15</div><span class="lbl">22</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d5)">16</div><span class="lbl">23</span></div>
+      <div class="tick"><div class="bar" style="background:var(--d5)">17</div><span class="lbl">24</span></div>
+      <div class="tick"><div class="bar" style="background:var(--neutral)">18</div><span class="lbl">25</span></div>
+      <div class="tick"><div class="bar" style="background:var(--neutral)">19</div><span class="lbl">26</span></div>
+      <div class="tick"><div class="bar" style="background:var(--neutral)">20</div><span class="lbl">27</span></div>
+      <div class="tick exam"><div class="bar">EX</div><span class="lbl">28</span></div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--d1)"></span>Domain 1 — Agentic Architecture &amp; Orchestration (27%)</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--d3)"></span>Domain 3 — Claude Code Configuration &amp; Workflows (20%)</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--d4)"></span>Domain 4 — Prompt Engineering &amp; Structured Output (20%)</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--d2)"></span>Domain 2 — Tool Design &amp; MCP Integration (18%)</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--d5)"></span>Domain 5 — Context Management &amp; Reliability (15%)</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--neutral)"></span>Consolidation / Mock exams / Review</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Domain weights &amp; day allocation</h3>
+    <table class="weights">
+      <tr><th>Domain</th><th>Weight</th><th>Days</th></tr>
+      <tr><td><span class="wdot" style="background:var(--d1)"></span>1. Agentic Architecture &amp; Orchestration</td><td>27%</td><td>5 (Days 1–5)</td></tr>
+      <tr><td><span class="wdot" style="background:var(--d3)"></span>3. Claude Code Configuration &amp; Workflows</td><td>20%</td><td>3 (Days 6–8)</td></tr>
+      <tr><td><span class="wdot" style="background:var(--d4)"></span>4. Prompt Engineering &amp; Structured Output</td><td>20%</td><td>3 (Days 9–11)</td></tr>
+      <tr><td><span class="wdot" style="background:var(--d2)"></span>2. Tool Design &amp; MCP Integration</td><td>18%</td><td>3 (Days 13–15)</td></tr>
+      <tr><td><span class="wdot" style="background:var(--d5)"></span>5. Context Management &amp; Reliability</td><td>15%</td><td>2 (Days 16–17)</td></tr>
+      <tr><td><span class="wdot" style="background:var(--neutral)"></span>Consolidation / mocks / final review</td><td>—</td><td>4 (Days 12, 18–20)</td></tr>
+    </table>
+    <p style="font-size:13px; color:var(--ink-soft); margin-top:12px; margin-bottom:0;">
+      Domain 1 is compressed from its full 7-day treatment down to 5 days by merging two pairs of closely related topics (noted on the relevant day cards below) — content isn't dropped, just regrouped, since it carries the most exam weight and deserves the most days regardless. Domains 3, 4, 2, and 5 keep their full separate-day treatment. <b>Guide references</b> point to your uploaded <code>guide_en.pdf</code> (Part I = theory chapters organized by technology, Part II = domain-note chapters organized by exam domain).
+    </p>
+  </div>
+
+  <!-- ============ DOMAIN 1 ============ -->
+  <div class="domain-header" id="domain1">
+    <div class="eyebrow-row">
+      <span class="domain-chip" style="background:var(--d1)">DOMAIN 1</span>
+      <span class="domain-weight">27% of exam</span>
+    </div>
+    <h2>Agentic Architecture &amp; Orchestration</h2>
+    <p>The single biggest domain — agent loops, coordinator/subagent patterns, hooks, task decomposition, and session management.</p>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d1); --card-bg:var(--d1-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 1</span>
+        <span class="day-date">Sat, Aug 8</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Agentic loop fundamentals</p>
+    <div class="block">
+      <span class="k">Prerequisite skim (optional, 10–15 min)</span>
+      <p>If the Claude API is new to you: <code>Ch. 1.1–1.2, 1.4</code> (Request Structure, Message Roles, System Prompt) and <code>Ch. 2.1</code> (What is tool_use) — not tied to a specific task statement, but everything downstream assumes you know this shape.</p>
+    </div>
+    <div class="block">
+      <span class="k">Study — Task 1.1</span>
+      <p><code>stop_reason</code> handling ("tool_use" vs "end_turn"), tool result → context loop, model-driven vs pre-configured decision-making.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 1.3</b> (the stop_reason field), <b>Ch. 3.1</b> (What is an Agentic Loop), <b>Part II Domain 1 §1.1</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Build a minimal agentic loop with the Agent SDK; verify it terminates correctly on "end_turn" and continues on "tool_use". Avoid anti-patterns: don't parse NL text for termination, don't use arbitrary iteration caps as primary stop logic.</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d1); --card-bg:var(--d1-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 2</span>
+        <span class="day-date">Sun, Aug 9</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Coordinator/subagent orchestration &amp; context passing</p>
+    <div class="block">
+      <span class="k">Study — Tasks 1.2–1.3</span>
+      <p>Hub-and-spoke orchestration, isolated subagent context, dynamic subagent selection, iterative refinement loops. Task tool + <code>allowedTools</code>, explicit context passing (subagents don't auto-inherit), <code>AgentDefinition</code>, <code>fork_session</code>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 3.2</b> (AgentDefinition Configuration), <b>Ch. 3.3</b> (Hub-and-Spoke: Coordinator and Subagents), <b>Ch. 3.4</b> (The Task Tool for Spawning Subagents), <b>Part II Domain 1 §1.2–1.3</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Sketch a coordinator that decides which subagents to invoke based on query complexity, not a fixed pipeline. Then spawn 2 parallel subagents via multiple Task calls in one response, passing prior findings explicitly with structured metadata (source URL, doc name).</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d1); --card-bg:var(--d1-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 3</span>
+        <span class="day-date">Mon, Aug 10</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Enforcement, handoff &amp; hooks</p>
+    <div class="block">
+      <span class="k">Study — Tasks 1.4–1.5</span>
+      <p>Programmatic enforcement vs prompt-based guidance, prerequisite gates, structured handoff summaries for human escalation. <code>PostToolUse</code> hooks for normalization, tool-call interception hooks for compliance, hooks vs prompts for deterministic guarantees.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 9.3</b> (Structured Handoff Protocols), <b>Ch. 3.5</b> (Hooks in the Agent SDK), <b>Part II Domain 1 §1.4–1.5</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Implement a programmatic prerequisite (e.g., block <code>process_refund</code> until <code>get_customer</code> returns a verified ID). Write a hook that blocks a policy-violating tool call (e.g., refund over $500) and redirects to escalation.</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d1); --card-bg:var(--d1-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 4</span>
+        <span class="day-date">Tue, Aug 11</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Task decomposition &amp; session management</p>
+    <div class="block">
+      <span class="k">Study — Tasks 1.6–1.7</span>
+      <p>Prompt chaining vs dynamic decomposition, <code>--resume</code>, <code>fork_session</code>, when to start fresh vs resume.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 8</b> (Task Decomposition Strategies — all of 8.1–8.3), <b>Ch. 5.10</b> (fork_session and Session Management), <b>Part II Domain 1 §1.6–1.7</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p><b>Exercise 1</b> from your guide's Practical Exercises section — Multi-tool Agent with Escalation Logic. Do this in full today; it reinforces Domains 1, 2, and 5 together.</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d1); --card-bg:var(--d1-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 5</span>
+        <span class="day-date">Wed, Aug 12</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Domain 1 consolidation</p>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs">Re-read <b>Part II Domain 1</b> end-to-end (§1.1–1.7) as a single pass, then work <b>Practice Test Questions 1–15</b> (Scenario: Multi-agent Research System — this scenario maps almost entirely onto Domain 1).</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Redo the official exam guide's Domain 1 sample questions (Q1–Q3, Q7–Q9) cold, then check reasoning against the explanations. Skim the <b>Appendix: Technologies and Concepts</b> table and self-quiz definitions out loud.</p>
+    </div>
+  </div>
+
+  <!-- ============ DOMAIN 3 ============ -->
+  <div class="domain-header" id="domain3">
+    <div class="eyebrow-row">
+      <span class="domain-chip" style="background:var(--d3)">DOMAIN 3</span>
+      <span class="domain-weight">20% of exam</span>
+    </div>
+    <h2>Claude Code Configuration &amp; Workflows</h2>
+    <p>CLAUDE.md hierarchy, slash commands and skills, planning mode, and CI/CD integration.</p>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d3); --card-bg:var(--d3-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 6</span>
+        <span class="day-date">Thu, Aug 13</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">CLAUDE.md hierarchy &amp; modularity</p>
+    <div class="block">
+      <span class="k">Study — Task 3.1</span>
+      <p>User/project/directory hierarchy, <code>@import</code>, <code>.claude/rules/</code> vs monolithic CLAUDE.md, <code>/memory</code> command.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 5.1</b> (The CLAUDE.md Hierarchy), <b>Ch. 5.2</b> (@path Syntax), <b>Ch. 5.3</b> (The .claude/rules/ Directory), <b>Ch. 5.8</b> (The /memory Command), <b>Part II Domain 3 §3.1</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Set up a project CLAUDE.md, split it into <code>.claude/rules/</code> topic files, verify with <code>/memory</code>.</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d3); --card-bg:var(--d3-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 7</span>
+        <span class="day-date">Fri, Aug 14</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Slash commands, skills &amp; path rules</p>
+    <div class="block">
+      <span class="k">Study — Tasks 3.2–3.3</span>
+      <p>Project vs user-scoped commands/skills, <code>context: fork</code>, <code>allowed-tools</code>, <code>argument-hint</code>, glob-scoped <code>.claude/rules/</code>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 5.4</b> (Custom Slash Commands and Skills), <b>Ch. 5.5</b> (Skills — .claude/skills/), <b>Part II Domain 3 §3.2–3.3</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Build a project-scoped <code>/review</code> command and a skill with <code>context: fork</code> + restricted <code>allowed-tools</code>.</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d3); --card-bg:var(--d3-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 8</span>
+        <span class="day-date">Sat, Aug 15</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Plan mode, iterative refinement &amp; CI/CD</p>
+    <div class="block">
+      <span class="k">Study — Tasks 3.4–3.6</span>
+      <p>Plan mode vs direct execution criteria, Explore subagent, input/output examples, test-driven iteration, <code>-p</code>/<code>--print</code>, <code>--output-format json</code>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 5.6</b> (Planning Mode vs Direct Execution), <b>Ch. 5.9</b> (Claude Code CLI for CI/CD), <b>Part II Domain 3 §3.4–3.6</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p><b>Exercise 2</b> from your guide — Configuring Claude Code for Team Development.</p>
+    </div>
+  </div>
+
+  <!-- ============ DOMAIN 4 ============ -->
+  <div class="domain-header" id="domain4">
+    <div class="eyebrow-row">
+      <span class="domain-chip" style="background:var(--d4)">DOMAIN 4</span>
+      <span class="domain-weight">20% of exam</span>
+    </div>
+    <h2>Prompt Engineering &amp; Structured Output</h2>
+    <p>Explicit criteria, few-shot prompting, JSON-schema-enforced output, validation/retry loops, and batch processing.</p>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d4); --card-bg:var(--d4-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 9</span>
+        <span class="day-date">Sun, Aug 16</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Prompt precision &amp; few-shot</p>
+    <div class="block">
+      <span class="k">Study — Tasks 4.1–4.2</span>
+      <p>Explicit criteria over vague instructions, why "be conservative" fails, 2–4 targeted few-shot examples, generalization vs pre-specified matching.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 6.1</b> (Few-shot Prompting), <b>Ch. 6.2</b> (Explicit Criteria vs Vague Instructions), <b>Part II Domain 4 §4.1–4.2</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Rewrite a vague review prompt into one with explicit inclusion/exclusion criteria; add few-shot examples for an ambiguous case.</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d4); --card-bg:var(--d4-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 10</span>
+        <span class="day-date">Mon, Aug 17</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Structured output &amp; validation</p>
+    <div class="block">
+      <span class="k">Study — Tasks 4.3–4.4</span>
+      <p><code>tool_use</code> + JSON schema, <code>tool_choice</code> ("auto"/"any"/forced), nullable fields to prevent hallucination, retry-with-error-feedback, when retries can't help.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 2.3–2.5</b> (tool_choice, JSON Schemas, Syntax vs Semantic Errors), <b>Ch. 6.5</b> (Validation and Retry-with-Feedback), <b>Ch. 6.6</b> (Self-correction), <b>Part II Domain 4 §4.3–4.4</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p><b>Exercise 3</b> from your guide — Structured Data Extraction Pipeline (schema, validation-retry loop, few-shot, batch strategy).</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d4); --card-bg:var(--d4-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 11</span>
+        <span class="day-date">Tue, Aug 18</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Batch processing &amp; multi-pass review</p>
+    <div class="block">
+      <span class="k">Study — Tasks 4.5–4.6</span>
+      <p>Message Batches API (50% savings, 24h window, no multi-turn tools, <code>custom_id</code>), self-review limitations, independent review instances, per-file + integration-pass splitting.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 7</b> (Message Batches API — all of 7.1–7.5), <b>Ch. 8.3</b> (Multi-pass Code Review), <b>Part II Domain 4 §4.5–4.6</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Calculate a batch submission schedule against a hypothetical SLA; design a two-pass review (per-file + cross-file).</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--neutral); --card-bg:var(--neutral-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 12</span>
+        <span class="day-date">Wed, Aug 19</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Domains 3 &amp; 4 consolidation</p>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs">Re-read <b>Part II Domain 3</b> and <b>Domain 4</b> end-to-end, then work <b>Practice Test Questions 16–45</b> (Scenarios: Claude Code for Continuous Integration, and Code Generation with Claude Code — these two scenarios map onto Domains 3 &amp; 4).</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Redo the official exam guide's sample Qs 4–6 (Claude Code) and 10–12 (CI/CD, batch, multi-pass review). Review the guide's <b>Out-of-Scope Topics</b> list for both domains.</p>
+    </div>
+  </div>
+
+  <!-- ============ DOMAIN 2 ============ -->
+  <div class="domain-header" id="domain2">
+    <div class="eyebrow-row">
+      <span class="domain-chip" style="background:var(--d2)">DOMAIN 2</span>
+      <span class="domain-weight">18% of exam</span>
+    </div>
+    <h2>Tool Design &amp; MCP Integration</h2>
+    <p>Tool description quality, structured MCP errors, tool allocation across agents, MCP server config, and built-in tool selection.</p>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d2); --card-bg:var(--d2-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 13</span>
+        <span class="day-date">Thu, Aug 20</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Tool interface design</p>
+    <div class="block">
+      <span class="k">Study — Task 2.1</span>
+      <p>Tool descriptions as the primary selection mechanism, splitting overlapping tools, keyword-sensitive system prompts.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 2.2</b> (Tool Definition), <b>Part II Domain 2 §2.1</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Take two similarly-named tools, rewrite descriptions to eliminate overlap.</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d2); --card-bg:var(--d2-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 14</span>
+        <span class="day-date">Fri, Aug 21</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">MCP errors &amp; tool distribution</p>
+    <div class="block">
+      <span class="k">Study — Tasks 2.2–2.3</span>
+      <p><code>isError</code>, error categories (transient/validation/business/permission), <code>isRetryable</code>, scoped tool access, <code>tool_choice</code> at the tool-distribution level.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 4.4</b> (The isError Flag in MCP), <b>Ch. 10.1–10.2</b> (Error Categories, Error-handling Anti-patterns), <b>Part II Domain 2 §2.2–2.3</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Add structured error metadata (<code>errorCategory</code>, <code>isRetryable</code>) to a mock MCP tool.</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d2); --card-bg:var(--d2-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 15</span>
+        <span class="day-date">Sat, Aug 22</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">MCP server integration &amp; built-in tools</p>
+    <div class="block">
+      <span class="k">Study — Tasks 2.4–2.5</span>
+      <p><code>.mcp.json</code> (project) vs <code>~/.claude.json</code> (user), env var expansion, MCP resources vs tools, Grep/Glob/Read/Write/Edit selection logic, Edit-fails-fallback-to-Read+Write.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 4.1–4.3</b> (What is MCP, MCP Servers, Configuring MCP Servers), <b>Ch. 4.5</b> (MCP Resources), <b>Ch. 13</b> (Claude Code Built-in Tools — all of 13.1–13.3), <b>Part II Domain 2 §2.4–2.5</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Configure one project-scoped and one user-scoped MCP server; practice choosing Grep vs Glob vs Edit for different scenarios.</p>
+    </div>
+  </div>
+
+  <!-- ============ DOMAIN 5 ============ -->
+  <div class="domain-header" id="domain5">
+    <div class="eyebrow-row">
+      <span class="domain-chip" style="background:var(--d5)">DOMAIN 5</span>
+      <span class="domain-weight">15% of exam</span>
+    </div>
+    <h2>Context Management &amp; Reliability</h2>
+    <p>Preserving critical facts under summarization, escalation design, error propagation, large-codebase context, and provenance.</p>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d5); --card-bg:var(--d5-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 16</span>
+        <span class="day-date">Sun, Aug 23</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Context management &amp; reliability</p>
+    <div class="block">
+      <span class="k">Study — Tasks 5.1–5.3</span>
+      <p>Progressive summarization risk, "lost in the middle," persistent "case facts" blocks, escalation triggers (not sentiment/confidence-based), error propagation across agents.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 1.5</b> (Context Window), <b>Ch. 11.1–11.3</b> (Extract Facts, Trimming Tool Results, Position-aware Input), <b>Ch. 9.1–9.2</b> (When to Escalate, Escalation Patterns), <b>Ch. 10.3–10.4</b> (Structured Subagent Error, Coverage Annotations), <b>Part II Domain 5 §5.1–5.3</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p><b>Exercise 4</b> from your guide — Designing and Debugging a Multi-agent Research Pipeline (error propagation and provenance).</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--d5); --card-bg:var(--d5-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 17</span>
+        <span class="day-date">Mon, Aug 24</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Large-codebase context &amp; human review design</p>
+    <div class="block">
+      <span class="k">Study — Tasks 5.4–5.6</span>
+      <p>Scratchpad files, subagent delegation for exploration, <code>/compact</code>, stratified sampling, field-level confidence calibration, claim-source provenance, conflict annotation.</p>
+    </div>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs"><b>Ch. 11.4–11.6</b> (Scratchpad Files, Delegating to Subagents, Structured State Persistence), <b>Ch. 5.7</b> (The /compact Command), <b>Ch. 9.4</b> (Confidence Calibration and Human Oversight), <b>Ch. 12</b> (Preserving Provenance — all of 12.1–12.4), <b>Part II Domain 5 §5.4–5.6</b>.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Work <b>Practice Test Questions 46–60</b> (Scenario: Customer Support Agent — the scenario that stresses Domain 5 escalation/context patterns most heavily). Redo the official exam guide's sample questions and re-skim Domains 2 &amp; 5 in-scope/out-of-scope lists.</p>
+    </div>
+  </div>
+
+  <!-- ============ MOCKS & REVIEW ============ -->
+  <div class="domain-header" id="mocks">
+    <div class="eyebrow-row">
+      <span class="domain-chip" style="background:var(--neutral)">FINAL STRETCH</span>
+      <span class="domain-weight">All domains, timed practice</span>
+    </div>
+    <h2>Mock Exams &amp; Final Review</h2>
+    <p>Full-length timed practice, targeted repair on weak domains, then a light recall-only pass before exam day.</p>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--neutral); --card-bg:var(--neutral-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 18</span>
+        <span class="day-date">Tue, Aug 25</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Full mock exam #1</p>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs">Use the remaining unworked chunk of the <b>Practice Test</b> (Questions 61–76, Scenario: Conversational AI Architecture Patterns — remember this is bonus/community content, not an official scenario, so treat misses here as lower priority than misses elsewhere).</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Take a full 60-question timed mock (120 min) covering all 5 domains, weighted per the blueprint — reuse Practice Test questions you haven't drilled yet, mixing in the official guide's 12 sample questions. Score by domain, not just overall — the real report breaks down by domain. Spend the afternoon reviewing every miss against the relevant Part II domain-note section.</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--neutral); --card-bg:var(--neutral-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 19</span>
+        <span class="day-date">Wed, Aug 26</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Full mock exam #2 + targeted repair</p>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Take a second mock, ideally re-attempting every Practice Test question you got wrong the first time (across all sections, Questions 1–76). Focus remaining study time only on domains scoring below ~75% — go back to that domain's Part I chapters, not just the Part II summary. Re-read the guide's <b>Out-of-Scope Topics</b> list once more so you don't waste review time on things like fine-tuning, auth, or prompt-caching internals — none of that is tested.</p>
+    </div>
+  </div>
+
+  <div class="day-card" style="--card-accent:var(--neutral); --card-bg:var(--neutral-bg);">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num">DAY 20</span>
+        <span class="day-date">Thu, Aug 27</span>
+      </div>
+      <div class="check" onclick="toggleDone(this)">✓</div>
+    </div>
+    <p class="day-title">Light review day</p>
+    <div class="block">
+      <span class="k">Guide references</span>
+      <p class="guide-refs">Skim <b>Part II (all 5 domains)</b> and the <b>Appendix: Technologies and Concepts</b> table only — this is recall, not new learning. Also skim the official exam guide's 12 sample questions one more time. No new material.</p>
+    </div>
+    <div class="block">
+      <span class="k">Do</span>
+      <p>Confirm logistics: government-issued photo ID matching registration name exactly, clear workspace, webcam visibility if online-proctored, no phones/notes/secondary monitors.</p>
+    </div>
+  </div>
+
+  <div class="day-card" id="exam-day" style="--card-accent:#1C1E20; --card-bg:#E7E7E5; border-left-width:6px;">
+    <div class="day-card-top">
+      <div class="day-id">
+        <span class="day-num" style="background:#1C1E20; color:#fff;">EXAM DAY</span>
+        <span class="day-date">Fri, Aug 28, 2026</span>
+      </div>
+    </div>
+    <p class="day-title">Sit the exam</p>
+    <div class="block">
+      <p>Arrive/log in early. Remember: 4 scenarios drawn from a bank of 6 (Customer Support Agent, Code Generation, Multi-Agent Research, Developer Productivity, CI/CD, Structured Data Extraction) — each maps to specific domains, so use the scenario framing to recall which task statements apply.</p>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER SECTIONS ============ -->
+  <div class="footer-section" id="scope">
+    <h2>Out of scope — don't over-study this</h2>
+    <p class="lede">Explicitly excluded from the official exam guide.</p>
+    <div class="panel">
+      <ul class="plain">
+        <li>Fine-tuning / training custom models</li>
+        <li>Claude API authentication, billing, or account management</li>
+        <li>Deep framework-specific coding beyond tool/schema configuration</li>
+        <li>Deploying or hosting MCP servers (infrastructure, networking, container orchestration)</li>
+        <li>Claude's internal architecture, training process, or model weights</li>
+        <li>Constitutional AI, RLHF, or safety training methodologies</li>
+        <li>Embedding models or vector database implementation details</li>
+        <li>Computer use (browser automation, desktop interaction) or Vision/image analysis</li>
+        <li>Streaming API / server-sent events</li>
+        <li>Rate limiting, quotas, detailed API cost calculations</li>
+        <li>OAuth, API key rotation, authentication protocol details</li>
+        <li>Cloud-provider-specific configurations (AWS, GCP, Azure)</li>
+        <li>Performance benchmarks or model comparison metrics</li>
+        <li>Prompt-caching implementation details (beyond knowing it exists)</li>
+        <li>Token counting algorithms or tokenization specifics</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-section" id="logistics">
+    <h2>Logistics to sort out this week</h2>
+    <div class="panel">
+      <ul class="plain">
+        <li>Exam is proctored via Pearson VUE (online or test center) — register through the Anthropic Partner Academy, then create your Pearson VUE account to pick your Aug 28 slot.</li>
+        <li>Fee: $125 USD (may vary with partner tier discount).</li>
+        <li>Cancel/reschedule up to 24 hrs ahead or you forfeit the fee — lock in your date now rather than later.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="final-note">
+    <h3>A quick reminder about the uploaded study guide</h3>
+    <p>Your <code>guide_en.pdf</code> adds a 7th scenario ("Conversational AI Architecture Patterns") and references an incomplete 8th — neither is in Anthropic's official 6-scenario exam guide, so treat that specific content as useful bonus practice rather than authoritative on exam mechanics (scenario count, question format, scoring). The core theory chapters (Part I) and domain notes (Part II) track closely with the official task statements and are solid for content prep.</p>
+  </div>
+
+</div>
+
+<script>
+  const totalDays = 20;
+  function toggleDone(el){
+    el.classList.toggle('done');
+    el.closest('.day-card').classList.toggle('done');
+    updateProgress();
+  }
+  function updateProgress(){
+    const done = document.querySelectorAll('.check.done').length;
+    document.getElementById('progress-label').textContent = done + ' / ' + totalDays + ' days checked off';
+    document.getElementById('progress-fill').style.width = (done/totalDays*100) + '%';
+  }
+</script>
+
+</body>
+</html>
