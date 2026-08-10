@@ -377,7 +377,7 @@
     </div>
     <div class="block">
       <span class="k">Do</span>
-      <p>Build a minimal agentic loop with the Agent SDK; verify it terminates correctly on "end_turn" and continues on "tool_use". Avoid anti-patterns: don't parse NL text for termination, don't use arbitrary iteration caps as primary stop logic.</p>
+      <p>Build a minimal agentic loop with the Agent SDK; verify it terminates correctly on "end_turn" and continues on "tool_use". Avoid anti-patterns: don't parse NL text for termination, don't use arbitrary iteration caps as primary stop logic. <b>ccaf repo:</b> <code>src/1</code>–<code>4</code> (<code>npm run basic/manual/runner/agent-sdk</code>).</p>
     </div>
   </div>
 
@@ -400,7 +400,7 @@
     </div>
     <div class="block">
       <span class="k">Do</span>
-      <p>Sketch a coordinator that decides which subagents to invoke based on query complexity, not a fixed pipeline. Then spawn 2 parallel subagents via multiple Task calls in one response, passing prior findings explicitly with structured metadata (source URL, doc name).</p>
+      <p>Sketch a coordinator that decides which subagents to invoke based on query complexity, not a fixed pipeline. Then spawn 2 parallel subagents via multiple Task calls in one response, passing prior findings explicitly with structured metadata (source URL, doc name). <b>ccaf repo:</b> <code>src/5</code>–<code>8</code> (<code>npm run context/fanout/routing/refine</code>).</p>
     </div>
   </div>
 
@@ -423,7 +423,7 @@
     </div>
     <div class="block">
       <span class="k">Do</span>
-      <p>Implement a programmatic prerequisite (e.g., block <code>process_refund</code> until <code>get_customer</code> returns a verified ID). Write a hook that blocks a policy-violating tool call (e.g., refund over $500) and redirects to escalation.</p>
+      <p>Implement a programmatic prerequisite (e.g., block <code>process_refund</code> until <code>get_customer</code> returns a verified ID). Write a hook that blocks a policy-violating tool call (e.g., refund over $500) and redirects to escalation. <b>ccaf repo:</b> <code>src/10</code>, <code>12</code>, <code>13</code> (<code>npm run gate/handoff/normalize</code>).</p>
     </div>
   </div>
 
@@ -446,7 +446,7 @@
     </div>
     <div class="block">
       <span class="k">Do</span>
-      <p><b>Exercise 1</b> from your guide's Practical Exercises section — Multi-tool Agent with Escalation Logic. Do this in full today; it reinforces Domains 1, 2, and 5 together.</p>
+      <p><b>Exercise 1</b> from your guide's Practical Exercises section — Multi-tool Agent with Escalation Logic. Do this in full today; it reinforces Domains 1, 2, and 5 together. <b>ccaf repo:</b> <code>src/11</code>, <code>9</code> (<code>npm run decompose/fork</code>).</p>
     </div>
   </div>
 
@@ -465,7 +465,7 @@
     </div>
     <div class="block">
       <span class="k">Do</span>
-      <p>Redo the official exam guide's Domain 1 sample questions (Q1–Q3, Q7–Q9) cold, then check reasoning against the explanations. Skim the <b>Appendix: Technologies and Concepts</b> table and self-quiz definitions out loud.</p>
+      <p>Redo the official exam guide's Domain 1 sample questions (Q1–Q3, Q7–Q9) cold, then check reasoning against the explanations. Skim the <b>Appendix: Technologies and Concepts</b> table and self-quiz definitions out loud. <b>ccaf repo:</b> skim <code>src/1</code>–<code>13</code> traces in README.md, no need to re-run (costs money per run).</p>
     </div>
   </div>
 

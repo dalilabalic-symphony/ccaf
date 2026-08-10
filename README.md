@@ -1,4 +1,4 @@
-# Claude Agent Loop Demo
+# Claude Agent Demos for CCA-F Topics
 
 Thirteen small TypeScript scripts in three parts.
 
@@ -50,6 +50,8 @@ npm run normalize  # 13-normalize-posttooluse.ts
 ```
 
 ## What each one shows
+
+# Part 1 — Basic Agent Loop examples
 
 ### `npm run basic` — one request, one response
 
