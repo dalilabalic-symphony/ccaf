@@ -446,7 +446,11 @@
     </div>
     <div class="block">
       <span class="k">Do</span>
-      <p><b>Exercise 1</b> from your guide's Practical Exercises section — Multi-tool Agent with Escalation Logic. Do this in full today; it reinforces Domains 1, 2, and 5 together. <b>ccaf repo:</b> <code>src/11</code>, <code>9</code> (<code>npm run decompose/fork</code>).</p>
+      <p>Run <code>src/11</code> (dynamic decomposition — a tangled multi-concern email split across parallel subagents and synthesised back into one reply) and <code>src/9</code> (<code>fork_session</code> — a shared baseline branched into two divergent continuations). <b>ccaf repo:</b> <code>src/11</code>, <code>9</code> (<code>npm run decompose/fork</code>).</p>
+    </div>
+    <div class="block">
+      <span class="k">Deferred to Days 14–15</span>
+      <p><b>Exercise 1</b> (Multi-tool Agent with Escalation Logic) moved out of today — two of its three bullets need Domain 2 material not covered yet (tool descriptions disambiguated to avoid selection confusion, structured MCP error responses). Today's run of <code>src/11</code>/<code>9</code> already satisfies the decomposition half; the rest gets assembled once Domain 2 is done.</p>
     </div>
   </div>
 
@@ -700,6 +704,10 @@
       <span class="k">Do</span>
       <p>Add structured error metadata (<code>errorCategory</code>, <code>isRetryable</code>) to a mock MCP tool.</p>
     </div>
+    <div class="block">
+      <span class="k">Deferred from Day 4 — Exercise 1, bullet 3</span>
+      <p>This is the structured-error bullet of <b>Exercise 1</b> (transient/validation/permission <code>errorCategory</code>, <code>isRetryable</code>, human-readable descriptions). Reuse the mock tool above and test all three categories: agent retries a transient error, explains a validation error to the user, and stops without retrying on a permission error.</p>
+    </div>
   </div>
 
   <div class="day-card" style="--card-accent:var(--d2); --card-bg:var(--d2-bg);">
@@ -722,6 +730,10 @@
     <div class="block">
       <span class="k">Do</span>
       <p>Configure one project-scoped and one user-scoped MCP server; practice choosing Grep vs Glob vs Edit for different scenarios.</p>
+    </div>
+    <div class="block">
+      <span class="k">Deferred from Day 4 — finish Exercise 1</span>
+      <p>Assemble the full <b>Exercise 1</b> (Multi-tool Agent with Escalation Logic) now that every piece exists: 3–4 tools including two disambiguated ones (Day 13), an explicit <code>stop_reason</code> loop (<code>src/2</code>), and structured tool errors with per-category retry logic (Day 14). Wire in the threshold-block-and-escalate hook pattern from <code>src/10</code>/<code>12</code> and the multi-concern decomposition from <code>src/11</code> to close it out end-to-end — by now this should be mostly review, not new build.</p>
     </div>
   </div>
 
