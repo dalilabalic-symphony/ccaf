@@ -1,5 +1,18 @@
 # Claude Agent Demos for CCA-F Topics
 
+## Study guide references
+
+`CCAF_Study_Plan.html` and `notes/Study_notes.md` are built from two separate
+external PDFs, neither of which is checked into this repo:
+
+- **Chapter references** (e.g. "Part I" theory chapters, "Part II" domain
+  notes) point to
+  [guide_en.pdf](https://github.com/paullarionov/claude-certified-architect/blob/main/pdf/guide_en.pdf) —
+  the official exam guide extended with theory foundations.
+- **Task and exercise references** point to the
+  [official exam guide](https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F6nizmqk8tpzpfjvt6qmmav7rh%2Fpublic%2F1783542750%2FClaude+Certified+Architect+%E2%80%93+Foundations+Exam+Guide.pdf) —
+  "Claude Certified Architect – Foundations Exam Guide".
+
 Eighteen small TypeScript scripts in four parts.
 
 **Examples 1–4** build up from a single Claude API call to a full agent loop,
