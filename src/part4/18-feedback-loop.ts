@@ -30,13 +30,13 @@
 
 import "dotenv/config";
 import Anthropic from "@anthropic-ai/sdk";
-import { CODE_UNDER_REVIEW, DISMISSAL_HISTORY } from "./shared/documents.js";
+import { CODE_UNDER_REVIEW, DISMISSAL_HISTORY } from "../shared/documents.js";
 import {
   FINDINGS_TOOL,
   T_REPORT_FINDINGS,
   type Finding,
   firstToolUse,
-} from "./shared/extractionTools.js";
+} from "../shared/extractionTools.js";
 
 const MODEL = "claude-haiku-4-5";
 

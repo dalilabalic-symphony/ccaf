@@ -31,13 +31,13 @@
 
 import "dotenv/config";
 import { query } from "@anthropic-ai/claude-agent-sdk";
-import { corpusServer } from "./shared/corpusTool.js";
+import { corpusServer } from "../shared/corpusTool.js";
 import {
   researchTeam,
   coordinatorToolOptions,
   COORDINATOR_MODEL,
-} from "./shared/researchTeam.js";
-import { trace } from "./shared/trace.js";
+} from "../shared/researchTeam.js";
+import { trace } from "../shared/trace.js";
 
 // Note what this prompt does and doesn't do. It states the goal, the
 // partitioning rule, and the quality bar — then stops. It does not script

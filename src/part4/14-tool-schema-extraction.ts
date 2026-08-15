@@ -27,14 +27,14 @@
 
 import "dotenv/config";
 import Anthropic from "@anthropic-ai/sdk";
-import { INVOICE_MISMATCHED, INVOICE_MISMATCHED_TRUTH } from "./shared/documents.js";
+import { INVOICE_MISMATCHED, INVOICE_MISMATCHED_TRUTH } from "../shared/documents.js";
 import {
   INVOICE_TOOL_MINIMAL,
   T_EXTRACT_INVOICE,
   firstToolUse,
   parseLooseJson,
   textOf,
-} from "./shared/extractionTools.js";
+} from "../shared/extractionTools.js";
 
 const MODEL = "claude-haiku-4-5";
 

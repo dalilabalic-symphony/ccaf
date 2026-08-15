@@ -15,13 +15,13 @@
 
 import "dotenv/config";
 import { query } from "@anthropic-ai/claude-agent-sdk";
-import { corpusServer } from "./shared/corpusTool.js";
+import { corpusServer } from "../shared/corpusTool.js";
 import {
   researchTeam,
   coordinatorToolOptions,
   COORDINATOR_MODEL,
-} from "./shared/researchTeam.js";
-import { trace, isAgentTool } from "./shared/trace.js";
+} from "../shared/researchTeam.js";
+import { trace, isAgentTool } from "../shared/trace.js";
 
 // The routing criteria are stated as conditions to evaluate, not as a
 // lookup table of query->pipeline. A table only covers the queries you

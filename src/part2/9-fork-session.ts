@@ -38,8 +38,8 @@
 
 import "dotenv/config";
 import { query, type Options } from "@anthropic-ai/claude-agent-sdk";
-import { corpusServer, CORPUS_TOOL_NAME } from "./shared/corpusTool.js";
-import { COORDINATOR_MODEL } from "./shared/researchTeam.js";
+import { corpusServer, CORPUS_TOOL_NAME } from "../shared/corpusTool.js";
+import { COORDINATOR_MODEL } from "../shared/researchTeam.js";
 
 const ANALYST_PROMPT = [
   "You are a research analyst working from a document corpus.",

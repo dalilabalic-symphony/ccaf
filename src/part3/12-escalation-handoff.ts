@@ -29,13 +29,13 @@
 
 import "dotenv/config";
 import { query } from "@anthropic-ai/claude-agent-sdk";
-import { trace } from "./shared/trace.js";
+import { trace } from "../shared/trace.js";
 import {
   ALL_SUPPORT_TOOLS,
   OPERATOR_FRAMING,
   REFUND_CAP_USD,
   supportMcpServers,
-} from "./shared/supportTools.js";
+} from "../shared/supportTools.js";
 import {
   auditTrail,
   createLedger,
@@ -45,7 +45,7 @@ import {
   refundCapGate,
   refundWatcher,
   type HandoffSummary,
-} from "./shared/supportHooks.js";
+} from "../shared/supportHooks.js";
 
 const MODEL = "claude-sonnet-5";
 

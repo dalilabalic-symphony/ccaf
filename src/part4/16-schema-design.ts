@@ -26,14 +26,14 @@
 
 import "dotenv/config";
 import Anthropic from "@anthropic-ai/sdk";
-import { INVOICE_SPARSE, INVOICE_SPARSE_TRUTH } from "./shared/documents.js";
+import { INVOICE_SPARSE, INVOICE_SPARSE_TRUTH } from "../shared/documents.js";
 import {
   INVOICE_TOOL_ALL_REQUIRED,
   INVOICE_TOOL_NULLABLE,
   NORMALIZATION_RULES,
   T_EXTRACT_INVOICE,
   firstToolUse,
-} from "./shared/extractionTools.js";
+} from "../shared/extractionTools.js";
 
 const MODEL = "claude-haiku-4-5";
 

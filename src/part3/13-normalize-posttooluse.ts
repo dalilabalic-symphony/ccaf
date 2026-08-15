@@ -39,13 +39,13 @@
 
 import "dotenv/config";
 import { query } from "@anthropic-ai/claude-agent-sdk";
-import { trace } from "./shared/trace.js";
+import { trace } from "../shared/trace.js";
 import {
   T_GET_ORDERS,
   T_GET_PAYMENTS,
   supportMcpServers,
-} from "./shared/supportTools.js";
-import { normalizeReads, normalizeRecord } from "./shared/supportHooks.js";
+} from "../shared/supportTools.js";
+import { normalizeReads, normalizeRecord } from "../shared/supportHooks.js";
 
 const MODEL = "claude-haiku-4-5";
 

@@ -21,7 +21,7 @@
 
 import "dotenv/config";
 import Anthropic from "@anthropic-ai/sdk";
-import { INTERNAL_MEMO, UNSORTED_DOCUMENTS } from "./shared/documents.js";
+import { INTERNAL_MEMO, UNSORTED_DOCUMENTS } from "../shared/documents.js";
 import {
   INVOICE_TOOL_ROUTED,
   METADATA_TOOL,
@@ -33,7 +33,7 @@ import {
   T_EXTRACT_SUPPORT_TICKET,
   firstToolUse,
   textOf,
-} from "./shared/extractionTools.js";
+} from "../shared/extractionTools.js";
 
 const MODEL = "claude-haiku-4-5";
 

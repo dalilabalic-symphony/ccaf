@@ -27,13 +27,13 @@
 
 import "dotenv/config";
 import { query, type AgentDefinition } from "@anthropic-ai/claude-agent-sdk";
-import { corpusServer } from "./shared/corpusTool.js";
+import { corpusServer } from "../shared/corpusTool.js";
 import {
   researchTeam,
   coordinatorToolOptions,
   COORDINATOR_MODEL,
-} from "./shared/researchTeam.js";
-import { trace } from "./shared/trace.js";
+} from "../shared/researchTeam.js";
+import { trace } from "../shared/trace.js";
 
 // Like the synthesist, the critic has no tools. It cannot go and check the
 // corpus itself, which is what keeps it a critic: its only job is to compare

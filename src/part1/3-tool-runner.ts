@@ -10,7 +10,7 @@ import "dotenv/config";
 import Anthropic from "@anthropic-ai/sdk";
 import { betaZodTool } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
-import { getWeather } from "./shared/weatherTool.js";
+import { getWeather } from "../shared/weatherTool.js";
 
 const MODEL = "claude-haiku-4-5";
 

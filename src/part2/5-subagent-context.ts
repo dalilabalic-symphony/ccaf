@@ -18,7 +18,7 @@
 
 import "dotenv/config";
 import { query, type AgentDefinition } from "@anthropic-ai/claude-agent-sdk";
-import { trace } from "./shared/trace.js";
+import { trace } from "../shared/trace.js";
 
 const COORDINATOR_MODEL = "claude-sonnet-5";
 

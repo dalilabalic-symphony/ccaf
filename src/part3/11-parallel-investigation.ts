@@ -35,19 +35,19 @@
 
 import "dotenv/config";
 import { query, type AgentDefinition } from "@anthropic-ai/claude-agent-sdk";
-import { trace } from "./shared/trace.js";
+import { trace } from "../shared/trace.js";
 import {
   OPERATOR_FRAMING,
   T_GET_CUSTOMER,
   T_GET_ORDERS,
   T_GET_PAYMENTS,
   supportMcpServers,
-} from "./shared/supportTools.js";
+} from "../shared/supportTools.js";
 import {
   auditTrail,
   delegationTrail,
   normalizeReads,
-} from "./shared/supportHooks.js";
+} from "../shared/supportHooks.js";
 
 const COORDINATOR_MODEL = "claude-sonnet-5";
 const INVESTIGATOR_MODEL = "claude-haiku-4-5";

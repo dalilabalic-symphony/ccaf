@@ -7,12 +7,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A teaching repo of standalone, numbered TypeScript scripts demonstrating the Claude agent loop, starting
 from a single Messages API call and growing in scope from there (multi-agent orchestration, hook-based
 enforcement, and whatever gets added next). There is no app, server, or shared entry point — each
-`src/N-*.ts` file is independently runnable and self-contained except for the shared mocks/helpers in
-`src/shared/`.
+`src/partN/N-*.ts` file is independently runnable and self-contained except for the shared mocks/helpers
+in `src/shared/`. Scripts are grouped by part into `src/part1/` … `src/part4/`.
 
-**Read `README.md` before making non-trivial changes.** It documents, per example, the exact mechanic
-being demonstrated, known SDK gotchas, and real trace output — that context doesn't live in the code
-comments and shouldn't be re-derived from scratch.
+**Read the root `README.md` and the relevant `src/partN/README.md` before making non-trivial changes.**
+The root README covers repo-wide setup and organization; each part's own README documents, per example,
+the exact mechanic being demonstrated, known SDK gotchas, and real trace output — that context doesn't
+live in the code comments and shouldn't be re-derived from scratch.
 
 ## Commands
 
@@ -21,11 +22,12 @@ npm install
 cp .env.example .env   # then set ANTHROPIC_API_KEY (skip if `ant auth login` is already done)
 
 npm run typecheck      # tsc --noEmit over everything — no test suite exists
-npm run <name>         # run one example; see package.json for the name -> src/N-*.ts mapping
+npm run <name>         # run one example; see package.json for the name -> src/partN/N-*.ts mapping
 ```
 
-Every example calls the live Anthropic API and costs real money per run (see the cost table at the
-bottom of README.md). Don't loop a script repeatedly to "test" a change — run it once, read the trace.
+Every example calls the live Anthropic API and costs real money per run (see the cost estimates in the
+Notes section of each part's `src/partN/README.md`). Don't loop a script repeatedly to "test" a change —
+run it once, read the trace.
 
 There is no linter and no test framework configured. Correctness is verified by running the script and
 reading its console trace, not by assertions (the one exception is example 10 Part 1, which calls a hook
@@ -35,17 +37,18 @@ function directly with no model involved — see below).
 
 ### Parts, increasing in scope
 
-Examples are grouped into numbered parts, each covering one theme and often sharing mocks/helpers across
-its examples. **When you add a new part, append a row here** (and keep `README.md` and `package.json`
-scripts in sync — those are the other two places a new example must be registered):
+Examples are grouped into numbered parts, each in its own folder (`src/part1/` … `src/part4/`) with its own
+`README.md`, and each covering one theme and often sharing mocks/helpers across its examples. **When you
+add a new part, append a row here**, create `src/partN/README.md` for it, and keep the root `README.md`
+and `package.json` scripts in sync — those are the other two places a new example must be registered:
 
-| Part | Examples | Theme | Shared files |
-|---|---|---|---|
-| 1 | `1`–`4` | The same "what's the weather" question, implemented four ways — raw Messages API with no tools, a hand-rolled tool-use loop, the SDK's (beta) Tool Runner, and the full Claude Agent SDK (`query()`). Meant to be read in sequence and diffed against the previous file. | `src/shared/weatherTool.ts` |
-| 2 | `5`–`9` | Coordinator/subagent orchestration via the Agent SDK. `6`–`8` share one research team and one mock corpus — only the coordinator's strategy differs (fan-out vs dynamic routing vs critique-and-refine). `9` is the odd one out: session forking, not subagents. | `src/shared/researchTeam.ts`, `src/shared/corpus.ts` |
-| 3 | `10`–`13` | Hooks (`PreToolUse` / `PostToolUse`) as enforcement, built around a shared mock support desk. | `src/shared/supportTools.ts`, `src/shared/supportHooks.ts` |
-| 4 | `14`–`18` | Structured extraction on the plain Messages API (no Agent SDK): tool-use JSON schemas, `tool_choice`, schema design, semantic validation and retry-with-feedback. Built around a mock accounts-payable document set. | `src/shared/documents.ts`, `src/shared/extractionTools.ts` |
-| *(next)* | | | |
+| Part | Folder | Examples | Theme | Shared files |
+|---|---|---|---|---|
+| 1 | `src/part1/` | `1`–`4` | The same "what's the weather" question, implemented four ways — raw Messages API with no tools, a hand-rolled tool-use loop, the SDK's (beta) Tool Runner, and the full Claude Agent SDK (`query()`). Meant to be read in sequence and diffed against the previous file. | `src/shared/weatherTool.ts` |
+| 2 | `src/part2/` | `5`–`9` | Coordinator/subagent orchestration via the Agent SDK. `6`–`8` share one research team and one mock corpus — only the coordinator's strategy differs (fan-out vs dynamic routing vs critique-and-refine). `9` is the odd one out: session forking, not subagents. | `src/shared/researchTeam.ts`, `src/shared/corpus.ts` |
+| 3 | `src/part3/` | `10`–`13` | Hooks (`PreToolUse` / `PostToolUse`) as enforcement, built around a shared mock support desk. | `src/shared/supportTools.ts`, `src/shared/supportHooks.ts` |
+| 4 | `src/part4/` | `14`–`18` | Structured extraction on the plain Messages API (no Agent SDK): tool-use JSON schemas, `tool_choice`, schema design, semantic validation and retry-with-feedback. Built around a mock accounts-payable document set. | `src/shared/documents.ts`, `src/shared/extractionTools.ts` |
+| *(next)* | | | | |
 
 Don't rely on wording elsewhere in this file like "three parts" or a total example count — treat the
 table above as the single source of truth for how many parts/examples currently exist.

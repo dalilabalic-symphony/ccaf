@@ -31,7 +31,7 @@
 
 import "dotenv/config";
 import Anthropic from "@anthropic-ai/sdk";
-import { INVOICE_MISMATCHED, INVOICE_MISMATCHED_TRUTH } from "./shared/documents.js";
+import { INVOICE_MISMATCHED, INVOICE_MISMATCHED_TRUTH } from "../shared/documents.js";
 import {
   INVOICE_TOOL_VALIDATED,
   T_EXTRACT_INVOICE,
@@ -39,7 +39,7 @@ import {
   firstToolUse,
   round2,
   validateInvoice,
-} from "./shared/extractionTools.js";
+} from "../shared/extractionTools.js";
 
 const MODEL = "claude-haiku-4-5";
 const MAX_ATTEMPTS = 3;

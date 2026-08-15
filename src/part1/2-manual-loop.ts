@@ -14,7 +14,7 @@
 
 import "dotenv/config";
 import Anthropic from "@anthropic-ai/sdk";
-import { weatherToolDefinition, getWeather } from "./shared/weatherTool.js";
+import { weatherToolDefinition, getWeather } from "../shared/weatherTool.js";
 
 const MODEL = "claude-haiku-4-5";
 const MAX_ITERATIONS = 5; // safety net against a runaway loop

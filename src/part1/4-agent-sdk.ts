@@ -13,7 +13,7 @@
 import "dotenv/config";
 import { query, tool, createSdkMcpServer } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
-import { getWeather } from "./shared/weatherTool.js";
+import { getWeather } from "../shared/weatherTool.js";
 
 const MODEL = "claude-haiku-4-5";
 
