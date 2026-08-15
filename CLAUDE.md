@@ -44,6 +44,7 @@ scripts in sync — those are the other two places a new example must be registe
 | 1 | `1`–`4` | The same "what's the weather" question, implemented four ways — raw Messages API with no tools, a hand-rolled tool-use loop, the SDK's (beta) Tool Runner, and the full Claude Agent SDK (`query()`). Meant to be read in sequence and diffed against the previous file. | `src/shared/weatherTool.ts` |
 | 2 | `5`–`9` | Coordinator/subagent orchestration via the Agent SDK. `6`–`8` share one research team and one mock corpus — only the coordinator's strategy differs (fan-out vs dynamic routing vs critique-and-refine). `9` is the odd one out: session forking, not subagents. | `src/shared/researchTeam.ts`, `src/shared/corpus.ts` |
 | 3 | `10`–`13` | Hooks (`PreToolUse` / `PostToolUse`) as enforcement, built around a shared mock support desk. | `src/shared/supportTools.ts`, `src/shared/supportHooks.ts` |
+| 4 | `14`–`18` | Structured extraction on the plain Messages API (no Agent SDK): tool-use JSON schemas, `tool_choice`, schema design, semantic validation and retry-with-feedback. Built around a mock accounts-payable document set. | `src/shared/documents.ts`, `src/shared/extractionTools.ts` |
 | *(next)* | | | |
 
 Don't rely on wording elsewhere in this file like "three parts" or a total example count — treat the
@@ -75,17 +76,30 @@ table above as the single source of truth for how many parts/examples currently 
   SCREAMING_CASE, depending on the service. This is the point of example `13` — don't "fix" the
   inconsistency in the mocks, it's the fixture the normalization hook is built to handle.
 - **All mocked tools are hardcoded**, not real network calls: `src/shared/weatherTool.ts` (examples 2–4),
-  `src/shared/corpus.ts` (examples 5–9), `src/shared/supportTools.ts` (examples 10–13). Keep new examples
-  consistent with this — no external calls, deterministic data.
+  `src/shared/corpus.ts` (examples 5–9), `src/shared/supportTools.ts` (examples 10–13),
+  `src/shared/documents.ts` (examples 14–18). Keep new examples consistent with this — no external
+  calls, deterministic data.
+- **Part 4's documents carry their ground truth** (`INVOICE_MISMATCHED_TRUTH`, `INVOICE_SPARSE_TRUTH`),
+  and the examples grade themselves against it. Every hazard in those fixtures is deliberate — INV-8842's
+  TOTAL DUE really does disagree with its own subtotal + VAT by 51.99, its PO really is missing, and
+  R-2026-0451's `02.03.2026` / `1.240,00 €` really are locale traps. Don't "fix" a document; if you change
+  one, change its `_TRUTH` in the same edit.
+- **Part 4 examples are Messages API, not Agent SDK** (`@anthropic-ai/sdk`, like examples 1–3). They use
+  raw JSON-schema tool definitions rather than Zod, because the schema itself is the subject being taught.
+- **`required` ≠ non-nullable** in Part 4's schemas: fields stay in `required` (so the key is always
+  present) and are typed `["string", "null"]` where a document may not contain them. Making an absent
+  field non-nullable is what produces fabrication — that's the whole of example 16, so don't tidy it away.
 - **Part 3 examples pass `settingSources: []`** so agents don't inherit `~/.claude` or `.claude/*` local
   settings, keeping behavior machine-independent. Preserve this on any new hook-based example.
 - **Model choice is deliberate per part**: Part 1 uses `claude-haiku-4-5` (cheap, fast iteration). Part 2
   mixes `claude-sonnet-5` for coordinators/synthesis and `claude-haiku-4-5` for narrow retrieval subagents.
   Part 3 uses `claude-sonnet-5` except example `13`, which deliberately uses `claude-haiku-4-5` to prove
-  the normalization hook helps a weak model, not just a strong one. The model is a `MODEL` constant near
-  the top of each file.
+  the normalization hook helps a weak model, not just a strong one. Part 4 uses `claude-haiku-4-5`
+  throughout, for the same reason — schema design shouldn't require buying a bigger model. The model is a
+  `MODEL` constant near the top of each file.
 
 ### Skills-to-task mapping
 
-`notes/Task_1.4_Skills.md` and `notes/Task_1.5_Skills.md` map certification task statements to the code
-examples that demonstrate them.
+`notes/Task_1.4_Skills.md`, `notes/Task_1.5_Skills.md`, `notes/Task_4.3_Skills.md` and
+`notes/Task_4.4_Skills.md` map certification task statements to the code examples that demonstrate them.
+Add one per task statement covered by a new part.

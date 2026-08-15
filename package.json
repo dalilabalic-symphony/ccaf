@@ -18,6 +18,11 @@
     "decompose": "tsx src/11-parallel-investigation.ts",
     "handoff": "tsx src/12-escalation-handoff.ts",
     "normalize": "tsx src/13-normalize-posttooluse.ts",
+    "extract": "tsx src/14-tool-schema-extraction.ts",
+    "choose": "tsx src/15-tool-choice.ts",
+    "schema": "tsx src/16-schema-design.ts",
+    "retry": "tsx src/17-validate-retry.ts",
+    "feedback": "tsx src/18-feedback-loop.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
